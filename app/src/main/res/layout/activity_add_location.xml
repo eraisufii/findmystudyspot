@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F9FF"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add New Spot"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#5B8DEF" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Expand the community repository database"
+            android:textSize="14sp"
+            android:textColor="#7A8CA5"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- NAME INPUT FIELD -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSpotName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Spot Name (e.g., Central Library)"
+                android:inputType="textCapWords" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- DESCRIPTION DETAILS INPUT FIELD -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSpotDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Description / Features (WiFi, outlets...)"
+                android:inputType="textLongMessage" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- CATEGORY DROPDOWN CONTAINER -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+            <AutoCompleteTextView
+                android:id="@+id/spinnerCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select Location Type"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- NEW VISUAL IMAGE SELECTOR MODULE -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose Cover Image Style:"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#111827"
+            android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="28dp">
+
+            <!-- Active Selection Live Preview Window -->
+            <ImageView
+                android:id="@+id/ivSelectedPreview"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                android:background="#E5E7EB"
+                android:src="@drawable/studyhub"
+                android:padding="2dp" />
+
+            <!-- Options Picker Container -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:layout_marginStart="12dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/imgBtnOptionCafe"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/cafe"
+                        android:background="?android:attr/selectableItemBackground"/>
+
+                    <ImageButton
+                        android:id="@+id/imgBtnOptionLibrary"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="8dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/library"
+                        android:background="?android:attr/selectableItemBackground"/>
+
+                    <ImageButton
+                        android:id="@+id/imgBtnOptionHub"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="8dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/studyhub"
+                        android:background="?android:attr/selectableItemBackground"/>
+
+                </LinearLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
+
+        <!-- SAVE TRIGGER BUTTON -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSaveLocation"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:text="Publish Study Spot"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="#5B8DEF"
+            app:cornerRadius="12dp" />
+
+    </LinearLayout>
+</ScrollView>

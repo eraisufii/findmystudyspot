@@ -1,111 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#F5F9FF">
 
+    <!-- Primary Vertical Workspace Frame -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Explore"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:textColor="#5B8DEF"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Find your next study spot"
-            android:textSize="16sp"
-            android:textColor="#7A8CA5"
-            android:layout_marginTop="4dp"/>
-    </LinearLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="10dp"
-        app:boxCornerRadiusBottomEnd="18dp"
-        app:boxCornerRadiusBottomStart="18dp"
-        app:boxCornerRadiusTopEnd="18dp"
-        app:boxCornerRadiusTopStart="18dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/searchBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Search study spots..." />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:paddingStart="12dp"
-        android:paddingBottom="10dp">
+        android:layout_above="@id/bottomNavigation">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <com.google.android.material.chip.Chip
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="All"
-                app:chipBackgroundColor="#5B8DEF"
-                android:textColor="@android:color/white"/>
+                android:text="Explore"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:textColor="#5B8DEF"/>
 
-            <com.google.android.material.chip.Chip
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cafés"
-                android:layout_marginStart="8dp"/>
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Libraries"
-                android:layout_marginStart="8dp"/>
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Study Rooms"
-                android:layout_marginStart="8dp"/>
-
+                android:text="Find your next study spot"
+                android:textSize="16sp"
+                android:textColor="#7A8CA5"
+                android:layout_marginTop="4dp"/>
         </LinearLayout>
 
-    </HorizontalScrollView>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="10dp"
+            app:boxCornerRadiusBottomEnd="18dp"
+            app:boxCornerRadiusBottomStart="18dp"
+            app:boxCornerRadiusTopEnd="18dp"
+            app:boxCornerRadiusTopStart="18dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingHorizontal="10dp"
-        android:paddingTop="6dp"
-        android:clipToPadding="false"
-        android:paddingBottom="16dp"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/searchBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Search study spots..." />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:paddingStart="12dp"
+            android:paddingBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="All"
+                    app:chipBackgroundColor="#5B8DEF"
+                    android:textColor="@android:color/white"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipCafes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cafés"
+                    android:layout_marginStart="8dp"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipLibraries"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Libraries"
+                    android:layout_marginStart="8dp"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipHubs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Study Hubs"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="10dp"
+            android:paddingTop="6dp"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp"/>
+
+    </LinearLayout>
+
+    <!-- FLOATING ACTION "+" ROUTE CONTROLLER ICON -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottomNavigation"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="20dp"
+        android:src="@android:drawable/ic_input_add"
+        app:tint="@android:color/white"
+        app:backgroundTint="#5B8DEF"
+        android:contentDescription="Add new spot entry shortcut link button" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="@android:color/white"
         app:itemIconTint="#5B8DEF"
         app:itemTextColor="#5B8DEF"
         app:menu="@menu/bottom_menu"
         android:elevation="8dp"/>
 
-</LinearLayout>
+</RelativeLayout>

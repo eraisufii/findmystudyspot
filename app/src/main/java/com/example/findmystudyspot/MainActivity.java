@@ -55,17 +55,13 @@ public class MainActivity extends AppCompatActivity {
 
                 boolean exists = databaseHelper.checkUser(email, password);
 
-                if(exists) {
+                if (exists) {
+                    Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(MainActivity.this,
-                            "Login Successful",
-                            Toast.LENGTH_SHORT).show();
-
-                    Intent intent = new Intent(MainActivity.this,
-                            ExploreActivity.class);
-
+                    Intent intent = new Intent(MainActivity.this, ExploreActivity.class);
+                    // Pass the logged-in email forward
+                    intent.putExtra("USER_EMAIL", email);
                     startActivity(intent);
-
                 } else {
 
                     Toast.makeText(MainActivity.this,

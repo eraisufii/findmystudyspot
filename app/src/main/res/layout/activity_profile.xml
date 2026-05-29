@@ -1,52 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
     android:background="#F5F9FF">
 
-    <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="60dp"
-        android:src="@android:drawable/sym_def_app_icon"/>
-
-    <TextView
-        android:layout_width="wrap_content"
+    <!-- Top and Middle content packed safely inside a vertical stack -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Student User"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:textColor="#111827"
-        android:layout_marginTop="20dp"/>
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/bottomNavigation"
+        android:padding="24dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="findmystudyspot@gmail.com"
-        android:textColor="#6B7280"
-        android:textSize="16sp"
-        android:layout_marginTop="6dp"/>
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="36dp"
+            android:src="@android:drawable/sym_def_app_icon"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/logoutButton"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        android:layout_marginTop="40dp"
-        app:cornerRadius="18dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Student Profile"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#111827"
+            android:layout_marginTop="20dp"/>
 
+        <!-- This is where your ProfileActivity.java dynamically inserts the email address -->
+        <TextView
+            android:id="@+id/tvProfileEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="user@email.com"
+            android:textSize="18sp"
+            android:textColor="#6B7280"
+            android:layout_marginTop="8dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/logoutButton"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="#FF6B6B"
+            android:textColor="#FFFFFF"
+            app:cornerRadius="18dp"/>
+
+    </LinearLayout>
+
+    <!-- Pinned firmly and cleanly to the absolute bottom edge of the device screen -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="16dp"
+        android:layout_alignParentBottom="true"
         android:background="@android:color/white"
         app:itemIconTint="#5B8DEF"
         app:itemTextColor="#5B8DEF"
         app:menu="@menu/bottom_menu"/>
 
-</LinearLayout>
+</RelativeLayout>

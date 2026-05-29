@@ -1,141 +1,110 @@
 package com.example.findmystudyspot;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.findmystudyspot.adapter.StudySpotAdapter;
+import com.example.findmystudyspot.database.DatabaseHelper;
 import com.example.findmystudyspot.model.StudySpot;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-
-import com.google.android.material.textfield.TextInputEditText;
-import android.content.Intent;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 public class ExploreActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    StudySpotAdapter adapter;
-    ArrayList<StudySpot> studySpotList;
+    private RecyclerView recyclerView;
+    private StudySpotAdapter adapter;
+    private ArrayList<StudySpot> studySpotList;
+    private DatabaseHelper dbHelper;
+    private String userEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explore);
 
+        // Track user lifecycle context
+        userEmail = getIntent().getStringExtra("USER_EMAIL");
+
+        // Setup local database reference layer
+        dbHelper = new DatabaseHelper(this);
+
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         TextInputEditText searchBar = findViewById(R.id.searchBar);
         BottomNavigationView bottomNavigation = findViewById(R.id.bottomNavigation);
+        FloatingActionButton fabAddLocation = findViewById(R.id.fabAddLocation);
 
         bottomNavigation.setSelectedItemId(R.id.nav_explore);
 
         bottomNavigation.setOnItemSelectedListener(item -> {
-
-            if (item.getItemId() == R.id.nav_saved) {
-
-                startActivity(new Intent(
-                        ExploreActivity.this,
-                        SavedActivity.class));
-
+            int id = item.getItemId();
+            if (id == R.id.nav_saved) {
+                Intent intent = new Intent(ExploreActivity.this, SavedActivity.class);
+                intent.putExtra("USER_EMAIL", userEmail);
+                startActivity(intent);
                 return true;
             }
-
-            if (item.getItemId() == R.id.nav_profile) {
-
-                startActivity(new Intent(
-                        ExploreActivity.this,
-                        ProfileActivity.class));
-
+            if (id == R.id.nav_profile) {
+                Intent intent = new Intent(ExploreActivity.this, ProfileActivity.class);
+                intent.putExtra("USER_EMAIL", userEmail);
+                startActivity(intent);
                 return true;
             }
-
-            return true;
+            return false;
         });
 
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s,
-                                          int start,
-                                          int count,
-                                          int after) {
-
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
-            public void onTextChanged(CharSequence s,
-                                      int start,
-                                      int before,
-                                      int count) {
-
-                adapter.getFilter().filter(s);
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (adapter != null) {
+                    adapter.getFilter().filter(s);
+                }
             }
-
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) {}
         });
 
-        studySpotList = new ArrayList<>();
+        // FAB short link listener routing to our new form layout page
+        if (fabAddLocation != null) {
+            fabAddLocation.setOnClickListener(v -> {
+                Intent intent = new Intent(ExploreActivity.this, AddLocationActivity.class);
+                startActivity(intent);
+            });
+        }
 
-        studySpotList.add(new StudySpot(
-                "Blue Bottle Café",
-                "Excellent WiFi • Quiet • Prishtinë",
-                R.drawable.cafe,
-                42.6629,
-                21.1655
-        ));
+        // CHIP SELECTOR BINDING MODULES
+        Chip chipAll = findViewById(R.id.chipAll);
+        Chip chipCafes = findViewById(R.id.chipCafes);
+        Chip chipLibraries = findViewById(R.id.chipLibraries);
+        Chip chipHubs = findViewById(R.id.chipHubs);
 
-        studySpotList.add(new StudySpot(
-                "University Library",
-                "Super quiet • Perfect for studying",
-                R.drawable.library,
-                42.6489,
-                21.1622
-        ));
+        if (chipAll != null) chipAll.setOnClickListener(v -> adapter.getFilter().filter(""));
+        if (chipCafes != null) chipCafes.setOnClickListener(v -> adapter.getFilter().filter("café"));
+        if (chipLibraries != null) chipLibraries.setOnClickListener(v -> adapter.getFilter().filter("library"));
+        if (chipHubs != null) chipHubs.setOnClickListener(v -> adapter.getFilter().filter("hub"));
+    }
 
-        studySpotList.add(new StudySpot(
-                "Study Hub",
-                "Modern space • Group friendly",
-                R.drawable.studyhub,
-                42.6590,
-                21.1605
-        ));
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-        studySpotList.add(new StudySpot(
-                "Coffee House",
-                "Modern café • Great WiFi",
-                R.drawable.cafe,
-                42.6629,
-                21.1655
-        ));
+        // Query the database to fetch the up-to-date entries list
+        studySpotList = dbHelper.getAllStudySpots();
 
-        studySpotList.add(new StudySpot(
-                "City Library",
-                "Quiet study area • Free seating",
-                R.drawable.library,
-                42.6489,
-                21.1622
-        ));
-
-        studySpotList.add(new StudySpot(
-                "Study Hub",
-                "Perfect for group work",
-                R.drawable.studyhub,
-                42.6590,
-                21.1605
-        ));
-
+        // Re-attach or refresh the layout adapter dataset
         adapter = new StudySpotAdapter(this, studySpotList);
-
         recyclerView.setAdapter(adapter);
     }
 }
